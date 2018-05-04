@@ -2,17 +2,14 @@ function getData () {
 
   var ss = SpreadsheetApp.getActiveSheet();
   var lastRow = ss.getLastRow()+1;
-
   var response = UrlFetchApp.fetch("http://magicseaweed.com/api/yourKeyToTheAPI/forecast/?spot_id=3535&units=eu");
   var json = response.getContentText();
   var data = JSON.parse(json);
-
   var waves = (data[1].swell.components.primary.height);
   var frequency = (data[1].swell.components.primary.period)
   var wind = (data[1].swell.components.primary.compassDirection);
   var rawtime = parseInt(data[1].timestamp);
 
-  // Time stamp
   function convertTimestamp() {
     var d = new Date(rawtime * 1000),	// Convert the passed timestamp to milliseconds
         yyyy = d.getFullYear(),
